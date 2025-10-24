@@ -1,0 +1,18 @@
+package com.gurudatta.motars.backend.model;
+
+import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Data
+@Document("Customers")
+public class Customer {
+    private String csid;
+    private String name;
+    private String phone;
+    private String email;
+    private String address;
+    private String date;
+    private String billBy;
+    private String[] previousBills;
+    private String pid;
+}

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: gurudatta.motars.backend
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/
+      database: Backend-data
+
