@@ -3,6 +3,8 @@ package com.gurudatta.motars.backend.model;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @Document("Customers")
 public class Customer {
@@ -13,6 +15,6 @@ public class Customer {
     private String address;
     private String date;
     private String billBy;
-    private String[] previousBills;
-    private String pid;
+    private List<String> previousBills;
+    private String billProductId;
 }

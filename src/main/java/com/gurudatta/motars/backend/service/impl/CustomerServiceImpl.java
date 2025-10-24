@@ -6,6 +6,8 @@ import com.gurudatta.motars.backend.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +33,15 @@ public class CustomerServiceImpl implements CustomerService {
         if (customer.getCsid() == null || customer.getCsid().equals("")) {
             customer.setCsid(UUID.randomUUID().toString());
         }
-        customer = customerRepository.insert(customer);
+        List<String> previousBillsIdList = customer.getPreviousBills();
+        if (previousBillsIdList.isEmpty()) {
+            List<String> billIdList = new ArrayList<>();
+            billIdList.add(customer.getBillProductId());
+            customer.setPreviousBills(billIdList);
+        } else {
+            previousBillsIdList.add(customer.getBillProductId());
+        }
+        customer = customerRepository.save(customer);
         return customer;
     }
 
