@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173") // Allow frontend access
+@CrossOrigin(origins = "http://localhost:3000") // Allow frontend access
 public class CustomerController {
     @Autowired
     CustomerService customerService;
