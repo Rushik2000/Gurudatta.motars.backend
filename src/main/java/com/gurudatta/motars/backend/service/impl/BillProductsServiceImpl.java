@@ -17,7 +17,7 @@ public class BillProductsServiceImpl implements BillProductsService {
     public BillProducts addBillProduct(BillProducts billProducts) {
         if (billProducts.getBpid() == null || billProducts.getBpid().equals(""))
             billProducts.setBpid(UUID.randomUUID().toString());
-        return billProductsRepository.insert(billProducts);
+        return billProductsRepository.save(billProducts);
     }
 
     @Override

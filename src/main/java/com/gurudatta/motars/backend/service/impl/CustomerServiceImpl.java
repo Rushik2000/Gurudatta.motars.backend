@@ -6,10 +6,7 @@ import com.gurudatta.motars.backend.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -30,16 +27,29 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer addCustomer(Customer customer) {
+        Customer dbCustomerData = null;
+        if (customer.getCsid() != null) {
+            dbCustomerData = customerRepository.findById(customer.getCsid()).orElse(null);
+        }
+
         if (customer.getCsid() == null || customer.getCsid().equals("")) {
             customer.setCsid(UUID.randomUUID().toString());
         }
-        List<String> previousBillsIdList = customer.getPreviousBills();
-        if (previousBillsIdList.isEmpty()) {
+
+        if (dbCustomerData == null) {
             List<String> billIdList = new ArrayList<>();
             billIdList.add(customer.getBillProductId());
             customer.setPreviousBills(billIdList);
         } else {
-            previousBillsIdList.add(customer.getBillProductId());
+            customer.setPreviousBills(dbCustomerData.getPreviousBills());
+            if (customer.getBillProductId() != null) {
+                String incomingBillId = customer.getBillProductId();
+                List<String> prevBillIdList = customer.getPreviousBills();
+                Optional<String> billIdPresent = prevBillIdList
+                        .stream().filter(eachBillId ->
+                                eachBillId.equals(incomingBillId)).findFirst();
+                if (billIdPresent.isEmpty()) customer.getPreviousBills().add(customer.getBillProductId());
+            }
         }
         customer = customerRepository.save(customer);
         return customer;
