@@ -15,8 +15,6 @@ public class Customer {
     private String phone;
     private String email;
     private String address;
-    private String date;
-    private String billBy;
     private List<String> previousBills;
     private String billProductId;
 }
