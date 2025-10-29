@@ -14,7 +14,6 @@ public class BillProducts {
     private String bpid;
     private String date;
     private String billBy;
-
     private List<Product> productList;
     private int subtotal;
     private BigDecimal total;
