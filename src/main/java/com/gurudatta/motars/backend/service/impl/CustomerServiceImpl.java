@@ -36,19 +36,21 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setCsid(UUID.randomUUID().toString());
         }
 
-        if (dbCustomerData == null) {
-            List<String> billIdList = new ArrayList<>();
-            billIdList.add(customer.getBillProductId());
-            customer.setPreviousBills(billIdList);
-        } else {
-            customer.setPreviousBills(dbCustomerData.getPreviousBills());
-            if (customer.getBillProductId() != null) {
-                String incomingBillId = customer.getBillProductId();
-                List<String> prevBillIdList = customer.getPreviousBills();
-                Optional<String> billIdPresent = prevBillIdList
-                        .stream().filter(eachBillId ->
-                                eachBillId.equals(incomingBillId)).findFirst();
-                if (billIdPresent.isEmpty()) customer.getPreviousBills().add(customer.getBillProductId());
+        if (customer.getBillProductId() != null) {
+            if (dbCustomerData == null) {
+                List<String> billIdList = new ArrayList<>();
+                billIdList.add(customer.getBillProductId());
+                customer.setPreviousBills(billIdList);
+            } else {
+                customer.setPreviousBills(dbCustomerData.getPreviousBills());
+                if (customer.getBillProductId() != null) {
+                    String incomingBillId = customer.getBillProductId();
+                    List<String> prevBillIdList = customer.getPreviousBills();
+                    Optional<String> billIdPresent = prevBillIdList
+                            .stream().filter(eachBillId ->
+                                    eachBillId.equals(incomingBillId)).findFirst();
+                    if (billIdPresent.isEmpty()) customer.getPreviousBills().add(customer.getBillProductId());
+                }
             }
         }
         customer = customerRepository.save(customer);
