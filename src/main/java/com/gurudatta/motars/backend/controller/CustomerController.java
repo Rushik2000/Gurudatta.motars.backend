@@ -32,7 +32,7 @@ public class CustomerController {
                 .body(customer);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/searchCustomer")
     public ResponseEntity<List<Customer>> searchCustomers(@RequestParam String name) {
         List<Customer> matched = customerService.searchCustomersByName(name);
         return ResponseEntity.ok(matched);

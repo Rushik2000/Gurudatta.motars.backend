@@ -10,4 +10,5 @@ public interface BillProductsService {
     BillProducts getBillProduct(String bpid);
 
     List<BillProducts> getCustomerAllBills(String csid);
+    List<BillProducts> getSupplierAllBills(String sid);
 }

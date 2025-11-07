@@ -1,12 +1,10 @@
-package com.gurudatta.motars.backend.model;
+package com.gurudatta.motars.backend.dto;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document("Products")
-public class Product {
+public class ProductDTO {
     @Id
     private String pid;
     private String name;

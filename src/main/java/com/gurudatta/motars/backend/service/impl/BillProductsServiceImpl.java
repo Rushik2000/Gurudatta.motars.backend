@@ -2,15 +2,13 @@ package com.gurudatta.motars.backend.service.impl;
 
 import com.gurudatta.motars.backend.model.BillProducts;
 import com.gurudatta.motars.backend.model.Customer;
-import com.gurudatta.motars.backend.model.Product;
+import com.gurudatta.motars.backend.model.Supplier;
 import com.gurudatta.motars.backend.repository.BillProductsRepository;
-import com.gurudatta.motars.backend.repository.CustomerRepository;
 import com.gurudatta.motars.backend.service.BillProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,6 +19,9 @@ public class BillProductsServiceImpl implements BillProductsService {
 
     @Autowired
     CustomerServiceImpl customerService;
+
+    @Autowired
+    SupplierServiceImpl supplierService;
 
     @Override
     public BillProducts addBillProduct(BillProducts billProducts) {
@@ -40,6 +41,21 @@ public class BillProductsServiceImpl implements BillProductsService {
         if (customer.getPreviousBills() != null && !customer.getPreviousBills().isEmpty()) {
             List<BillProducts> billList = new ArrayList<>();
             List<String> previousBillIds = customer.getPreviousBills();
+            previousBillIds.forEach(eachBid -> {
+                BillProducts bill = billProductsRepository.findById(eachBid).orElseThrow();
+                billList.add(bill);
+            });
+            return billList;
+        }
+        return null;
+    }
+
+    @Override
+    public List<BillProducts> getSupplierAllBills(String sid) {
+        Supplier sup = supplierService.getSupplierById(sid);
+        if (sup.getPreviousBills() != null && !sup.getPreviousBills().isEmpty()) {
+            List<BillProducts> billList = new ArrayList<>();
+            List<String> previousBillIds = sup.getPreviousBills();
             previousBillIds.forEach(eachBid -> {
                 BillProducts bill = billProductsRepository.findById(eachBid).orElseThrow();
                 billList.add(bill);

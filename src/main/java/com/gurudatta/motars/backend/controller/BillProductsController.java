@@ -42,4 +42,12 @@ public class BillProductsController {
                 .status(HttpStatus.OK)
                 .body(allBills);
     }
+
+    @GetMapping("/supplierBills/{sid}")
+    public ResponseEntity<List<BillProducts>> getSupplierAllBills(@PathVariable String sid) {
+        List<BillProducts> allBills = billProductsService.getSupplierAllBills(sid);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(allBills);
+    }
 }
