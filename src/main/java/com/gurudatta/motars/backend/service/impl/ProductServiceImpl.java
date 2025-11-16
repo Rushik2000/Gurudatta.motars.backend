@@ -2,7 +2,6 @@ package com.gurudatta.motars.backend.service.impl;
 
 import com.gurudatta.motars.backend.dto.ProductDTO;
 import com.gurudatta.motars.backend.model.Product;
-import com.gurudatta.motars.backend.model.Supplier;
 import com.gurudatta.motars.backend.repository.ProductRepository;
 import com.gurudatta.motars.backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
             }
             Product product = convertDTOToEntity(pDto);
             product = productRepository.save(product);
+            product.setPrice(pDto.getPrice());
             product.setQuantity(purchasedQty);
             savedProducts.add(product);
         }
