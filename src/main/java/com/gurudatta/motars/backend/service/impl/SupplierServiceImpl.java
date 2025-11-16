@@ -33,6 +33,8 @@ public class SupplierServiceImpl implements SupplierService {
         Supplier dbSupplierData = null;
         if (supplier.getSid() != null) {
             dbSupplierData = supplierRepository.findById(supplier.getSid()).orElse(null);
+        } else {
+            dbSupplierData = supplierRepository.findByName(supplier.getName());
         }
 
         if (supplier.getSid() == null || supplier.getSid().equals("")) {

@@ -30,6 +30,8 @@ public class CustomerServiceImpl implements CustomerService {
         Customer dbCustomerData = null;
         if (customer.getCsid() != null) {
             dbCustomerData = customerRepository.findById(customer.getCsid()).orElse(null);
+        } else {
+            dbCustomerData = customerRepository.findByName(customer.getName());
         }
 
         if (customer.getCsid() == null || customer.getCsid().equals("")) {
