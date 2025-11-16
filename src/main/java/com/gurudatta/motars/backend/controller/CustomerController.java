@@ -38,5 +38,9 @@ public class CustomerController {
         return ResponseEntity.ok(matched);
     }
 
+    @GetMapping("/customerByPhone")
+    public ResponseEntity<Customer> searchCustomerByPhone(@RequestParam String phone) {
+        return ResponseEntity.ok(customerService.searchCustomerByPhone(phone));
+    }
 
 }

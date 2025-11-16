@@ -38,4 +38,9 @@ public class PurchaseController {
         List<Supplier> matched = supplierService.searchSuppliersByName(name);
         return ResponseEntity.ok(matched);
     }
+
+    @GetMapping("/supplierByPhone")
+    public ResponseEntity<Supplier> searchSupplierByPhone(@RequestParam String phone) {
+        return ResponseEntity.ok(supplierService.searchSupplierByPhone(phone));
+    }
 }

@@ -67,4 +67,13 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return customerList;
     }
+
+    @Override
+    public Customer searchCustomerByPhone(String phone) {
+        Customer customer = null;
+        if (phone != null) {
+            customer = customerRepository.findByPhone(phone);
+        }
+        return customer;
+    }
 }

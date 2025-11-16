@@ -70,4 +70,13 @@ public class SupplierServiceImpl implements SupplierService {
         }
         return supplierList;
     }
+
+    @Override
+    public Supplier searchSupplierByPhone(String phone) {
+        Supplier supplier = null;
+        if (phone != null) {
+            supplier = supplierRepository.findByPhone(phone);
+        }
+        return supplier;
+    }
 }
