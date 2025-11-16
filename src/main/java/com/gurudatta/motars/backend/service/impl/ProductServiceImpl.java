@@ -50,20 +50,36 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> removeProducts(List<Product> products) {
+    public List<ProductDTO> removeProducts(List<ProductDTO> productsDto) {
         List<Product> updatedProducts = new ArrayList<>();
-        for (Product requestedProd : products) {
-            productRepository.findById(requestedProd.getPid()).ifPresent(dbProd -> {
-                if (dbProd.getName().equals(requestedProd.getName())) {
-                    dbProd.setQuantity(dbProd.getQuantity() - requestedProd.getQuantity());
+        for (ProductDTO productDto : productsDto) {
+            Product dbProd;
+            if (productDto.getPid() != null) {
+                Optional<Product> optionalDbProd = productRepository.findById(productDto.getPid());
+                dbProd = optionalDbProd.get();
+            } else {
+                dbProd = productRepository.findByName(productDto.getName());
+            }
+            if (dbProd != null) {
+                if (dbProd.getName().equals(productDto.getName())) {
+                    dbProd.setQuantity(dbProd.getQuantity() - productDto.getQuantity());
                     updatedProducts.add(dbProd);
                 }
-            });
+            } else {
+                Product product = new Product();
+                product.setPid(UUID.randomUUID().toString());
+                product.setQuantity(-productDto.getQuantity());
+                product.setName(productDto.getName());
+                updatedProducts.add(product);
+                // same product id should be return to product DTO for reference
+                productDto.setPid(product.getPid());
+            }
         }
+
         if (!updatedProducts.isEmpty()) {
             productRepository.saveAll(updatedProducts);
         }
-        return products;
+        return productsDto;
     }
 
 

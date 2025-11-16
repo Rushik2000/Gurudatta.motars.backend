@@ -42,11 +42,11 @@ public class ProductController {
     }
 
     @DeleteMapping("/product")
-    public ResponseEntity<List<Product>> removeProduct(@RequestBody List<Product> products) {
-        products = productService.removeProducts(products);
+    public ResponseEntity<List<ProductDTO>> removeProduct(@RequestBody List<ProductDTO> productsDto) {
+        productsDto = productService.removeProducts(productsDto);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(products);
+                .body(productsDto);
     }
 
     @GetMapping("/searchProduct")
