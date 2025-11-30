@@ -49,6 +49,14 @@ public class ProductController {
                 .body(productsDto);
     }
 
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> productList = productService.getAllProducts();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productList);
+    }
+
     @GetMapping("/searchProduct")
     public ResponseEntity<List<Product>> searchProduct(@RequestParam String name) {
         List<Product> matched = productService.searchProductsByName(name);

@@ -82,6 +82,11 @@ public class ProductServiceImpl implements ProductService {
         return productsDto;
     }
 
+    @Override
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
 
     @Override
     public List<Product> searchProductsByName(String name) {

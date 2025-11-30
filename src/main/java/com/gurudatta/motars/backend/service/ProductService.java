@@ -11,4 +11,6 @@ public interface ProductService {
     Product updateProduct(Product product);
     List<Product> searchProductsByName(String name);
     List<ProductDTO> removeProducts(List<ProductDTO> products);
+
+    List<Product> getAllProducts();
 }
